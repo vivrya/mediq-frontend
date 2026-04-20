@@ -1,4 +1,5 @@
 import { BrainCircuit, Flame, Waves, Target } from "lucide-react";
+import { CellMitosis } from "./animations/CellMitosis";
 
 const pillars = [
   {
@@ -25,8 +26,16 @@ const pillars = [
 
 export function AdhdMethods() {
   return (
-    <section id="adhd" className="py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+    <section id="adhd" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Ambient cell mitosis animation */}
+      <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-[540px] h-[540px] pointer-events-none hidden lg:block opacity-70" aria-hidden>
+        <CellMitosis opacity={0.6} className="w-full h-full" />
+      </div>
+      <div className="absolute -right-32 top-10 w-[360px] h-[360px] pointer-events-none opacity-40 lg:hidden" aria-hidden>
+        <CellMitosis opacity={0.55} className="w-full h-full" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5 lg:sticky lg:top-28">
             <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">

@@ -1,4 +1,5 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import { OrbitParticles } from "./animations/OrbitParticles";
 
 export function FinalCTA() {
   return (
@@ -8,6 +9,10 @@ export function FinalCTA() {
           <div className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary/50 blur-3xl" />
             <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-accent/40 blur-3xl" />
+          </div>
+          {/* Orbiting brain particles */}
+          <div className="absolute -right-24 -top-24 w-[560px] h-[560px] pointer-events-none hidden md:block" aria-hidden>
+            <OrbitParticles opacity={0.55} className="w-full h-full" />
           </div>
 
           <div className="relative max-w-3xl">

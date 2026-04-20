@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles, Play } from "lucide-react";
+import { NeuralNet } from "./animations/NeuralNet";
 
 const HERO_IMG =
   "https://static.prod-images.emergentagent.com/jobs/6884ab8f-c36c-4a9c-aa44-f69c2646dc8a/images/887afc6ba91775830fc0d3e48d9c29d0e943f11dc8b671f42a1a3d84fa78bdd9.png";
@@ -7,6 +8,10 @@ export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-36 md:pt-44 pb-20 md:pb-28 grain">
       <div className="hero-glow" aria-hidden />
+      {/* Ambient neural network background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        <NeuralNet density={26} opacity={0.32} />
+      </div>
       <div className="absolute inset-x-0 top-24 flex justify-center opacity-60 dark:opacity-30 pointer-events-none">
         <div className="h-[520px] w-[520px] rounded-full bg-primary/20 blur-3xl" />
       </div>
