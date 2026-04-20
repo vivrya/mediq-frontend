@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend-only retest of REFACTORED Mediq landing page (now MUI v6 + TSX). All 17 review-request feature areas pass. Verified: (1) Page compiles cleanly via CRACO/TS, no console or page errors. (2) All required data-testids present: primary-nav, mediq-logo, nav-cta-get-access, theme-toggle, hero-cta-primary/secondary, hero-badge, trust-bar, step-1..4, video-play-mock, playlist-item-0..4, flashcard-flip, mcq-option-a..d, testimonial-0..2, billing-monthly/yearly, pricing-free/pro/premium-cta, faq-trigger-0..5, final-cta-primary, social-0..3, mobile-menu-toggle, mobile-nav-features/method/pricing/faq/cta. (3) AppBar position:fixed; on scroll>12px backdropFilter becomes 'saturate(1.8) blur(14px)' with translucent bg (rgba(255,255,255,0.8) light / rgba(17,24,39,0.8) dark). (4) Theme toggle flips body bg between rgb(250,250,250) light and rgb(10,15,28)=#0a0f1c dark; localStorage 'mediq-theme' set to 'dark'/'light'; persists across reload. (5) Pricing: ToggleButtonGroup switches Pro card from $19 (monthly) to $12 (yearly); MOST POPULAR chip visible. (6) FAQ accordion aria-expanded false→true on click. (7) Flashcard flip: outer transform changes from identity matrix to matrix3d rotateY(180deg). (8) MCQ after clicking option-a: a border rgb(211,47,47) (error.main), c border rgb(46,125,50) (success.main); confirmation Alert appears. (9) Mobile (390px): hamburger opens Drawer containing all 5 nav links. (10) Dark mode: zero >400x200 sections with white bg detected; SVG animations render (91 svg nodes incl. neural network, cell mitosis, orbit particles).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Minor inaccuracy in review-request misc note: The implementation uses MUI ThemeProvider with `mode` prop (palette mode), NOT CssVarsProvider. As a result, document.documentElement does NOT receive the `data-mui-color-scheme` attribute mentioned in the request. The dark/light switching still works perfectly via palette.mode and localStorage 'mediq-theme'. If the agent intended consumers to detect theme via that attribute (e.g., for CSS overrides), they should migrate to experimental_extendTheme + CssVarsProvider. Otherwise, no action required.",
+    "Pricing yearly savings copy shows '-30%' chip but Pro pricing is $19→$12 which is ~37% off. Either update the chip to '-37%' or adjust prices. Cosmetic only."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "test_credentials": "N/A (static landing page, no auth)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Mediq is a static MUI v6 (TSX) landing page at https://study-smart-48.preview.emergentagent.com/. Theme persistence uses localStorage key 'mediq-theme' (values: 'light'/'dark'); body bg in dark = rgb(10,15,28). To validate sticky nav blur, scroll >12px and read computed style of `header.MuiAppBar-root` (NOT [data-testid=primary-nav], which is the inner Stack). MCQ option color-states only activate after clicking any option (picked state); option-a click reveals option-c green and option-a red. Flashcard flip transform is on the [data-testid=flashcard-flip] outer element itself. Mobile breakpoint kicks in <md (<900px) so use 390px viewport for mobile-menu-toggle. data-mui-color-scheme attribute is NOT set (implementation uses palette.mode). All 41 required data-testids found and functional.",
+  "rca of the issue": "N/A - no issues found in current iteration"
+}
