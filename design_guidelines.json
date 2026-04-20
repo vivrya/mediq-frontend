@@ -1,0 +1,117 @@
+{
+  "theme": "light",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) + Archetype 5 (Jewel & Luxury)",
+  "design_philosophy": "A premium blend of Apple's aesthetic (glassmorphism, massive negative space), Notion's structural clarity (bento grids, clean borders), and Duolingo's motivating gamification (streaks, green success accents). Designed to reduce cognitive load for ADHD learners while maintaining high-end medical credibility.",
+  "colors": {
+    "light": {
+      "background": "#FDFDFC",
+      "foreground": "#0A0F1C",
+      "primary": "#0F52BA",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#F1F5F9",
+      "secondary_foreground": "#0F172A",
+      "accent": "#10B981",
+      "accent_foreground": "#FFFFFF",
+      "muted": "#F8FAFC",
+      "muted_foreground": "#64748B",
+      "border": "#E2E8F0",
+      "surface_glass": "rgba(255, 255, 255, 0.7)",
+      "surface_border": "rgba(255, 255, 255, 0.2)"
+    },
+    "dark": {
+      "background": "#050814",
+      "foreground": "#F8FAFC",
+      "primary": "#3B82F6",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#1E293B",
+      "secondary_foreground": "#F1F5F9",
+      "accent": "#10B981",
+      "accent_foreground": "#FFFFFF",
+      "muted": "#0F172A",
+      "muted_foreground": "#94A3B8",
+      "border": "#1E293B",
+      "surface_glass": "rgba(0, 0, 0, 0.6)",
+      "surface_border": "rgba(255, 255, 255, 0.1)"
+    }
+  },
+  "typography": {
+    "imports": "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap');",
+    "headings": {
+      "family": "'Outfit', sans-serif",
+      "weights": ["400", "600", "700"],
+      "styles": "tracking-tight",
+      "h1_size": "text-4xl md:text-5xl lg:text-6xl"
+    },
+    "body": {
+      "family": "'Manrope', sans-serif",
+      "weights": ["400", "500", "600"],
+      "styles": "leading-relaxed tracking-normal text-base md:text-lg"
+    }
+  },
+  "spacing": {
+    "section": "py-24 md:py-32",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "bento_gap": "gap-6 md:gap-8",
+    "card_padding": "p-8 md:p-12"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full px-8 py-4 font-semibold transition-all hover:-translate-y-1 active:translate-y-0",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full px-8 py-4 font-medium transition-all"
+    },
+    "cards": {
+      "bento": "bg-white dark:bg-slate-900 border border-border rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300",
+      "glass": "bg-white/70 dark:bg-black/60 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-saturate-150"
+    },
+    "badges": {
+      "accent": "bg-accent/10 text-accent border border-accent/20 rounded-full px-4 py-1.5 text-sm font-semibold uppercase tracking-wider"
+    }
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero_abstract",
+        "url": "https://static.prod-images.emergentagent.com/jobs/6884ab8f-c36c-4a9c-aa44-f69c2646dc8a/images/887afc6ba91775830fc0d3e48d9c29d0e943f11dc8b671f42a1a3d84fa78bdd9.png",
+        "description": "Premium 3D abstract brain network representing focus. Use as the massive hero visual on the right side."
+      },
+      {
+        "category": "feature_flashcards",
+        "url": "https://static.prod-images.emergentagent.com/jobs/6884ab8f-c36c-4a9c-aa44-f69c2646dc8a/images/9e2dbdd24da7e5beadccce9eb33242aa4bc970d5375e196edf15606fe3251b9a.png",
+        "description": "3D floating flashcards and progress UI. Use inside the 'Smart Quizzes/Flashcards' bento grid card."
+      },
+      {
+        "category": "testimonial_student_1",
+        "url": "https://images.unsplash.com/photo-1766297248122-5957c51b1f7c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwzfHxtZWRpY2FsJTIwc3R1ZGVudCUyMHN0dWR5aW5nfGVufDB8fHx8MTc3NjcwOTI0OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Two women in lab coats. Use as an avatar or card image in the Testimonials section."
+      },
+      {
+        "category": "testimonial_student_2",
+        "url": "https://images.unsplash.com/photo-1642975967602-653d378f3b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwyfHxtZWRpY2FsJTIwc3R1ZGVudCUyMHN0dWR5aW5nfGVufDB8fHx8MTc3NjcwOTI0OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Male doctor in white coat. Use as an avatar for social proof."
+      }
+    ]
+  },
+  "sections_instructions": {
+    "nav": "Sticky header utilizing 'cards.glass' styling. Must include Mediq text logo (Outfit font, font-bold, tracking-tight), 3-4 nav links, Dark/Light mode toggle, and a 'Get Access' CTA button.",
+    "hero": "Two-column bento-like layout. Left: Massive H1 (Outfit), subtitle (Manrope), and primary CTA with an accent badge above H1 ('NEW: ADHD-Focused Engine'). Right: Render the 'hero_abstract' image with Framer Motion float effect.",
+    "sponsors": "A subtle 'Trusted By Top Medical Institutions' section. Since we lack specific logos, use lucide-react icons (e.g., Cross, Shield, Building) paired with typographic names like 'Hopkins Med', 'Kings College' in a slow react-fast-marquee. Opacity 50%, grayscale.",
+    "features_bento": "Tetris Grid (Mode A). Use generous gaps. Block 1: 'ADHD-friendly methods' (text-heavy, col-span-8). Block 2: 'Video chunks' (col-span-4). Block 3: 'Smart Quizzes' (col-span-4, inject 'feature_flashcards' image here). Block 4: 'Progress Tracking' (col-span-8).",
+    "progress_preview": "Create a mock UI section. Use raw HTML/Tailwind to build a 'Dashboard snippet' showing a streak flame icon (orange/red), an XP bar (green), and a mock progress chart. Make it feel tactile (Neumorphism touch).",
+    "testimonials": "Masonry grid or horizontal scroll. Use the provided student images as avatars.",
+    "pricing": "3 standard tiers. The middle 'Pro' tier MUST have a glowing border (Tracing Beam effect or a static 2px primary border with drop-shadow) and a 'Most Popular' accent badge.",
+    "faq": "Use Shadcn Accordion. Minimalist styling, left-aligned, no borders between items except a subtle bottom line.",
+    "footer": "Massive top padding (py-32). If light mode, make footer extremely dark (#0A0F1C) for high contrast exit. Include a massive 'Mediq' logo at the bottom (text-[10vw])."
+  },
+  "animations": {
+    "hero_image": "Float animation using framer-motion: animate={{ y: [-10, 10, -10] }} transition={{ repeat: Infinity, duration: 5 }}",
+    "scroll_reveal": "Use whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} for bento cards.",
+    "micro_interactions": "Hover states on all buttons and cards. Active states (scale down slightly) on click."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "instructions": "Use stroke-width 1.5. Use the 'Flame' icon for streaks, 'BrainCircuit' for ADHD methods, 'PlayCircle' for video chunks, 'CheckCircle2' (in accent color) for pricing features."
+  },
+  "testing": {
+    "attributes": "Add data-testid to EVERY button, nav link, pricing tier, and accordion trigger (e.g., data-testid='hero-cta', data-testid='pricing-pro-cta')."
+  }
+}
