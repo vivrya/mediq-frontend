@@ -90,7 +90,7 @@ export function Pricing() {
             </ToggleButton>
             <ToggleButton value="yearly" data-testid="billing-yearly" sx={{ border: 0, borderRadius: "999px !important", px: 3, py: 1, fontWeight: 600 }}>
               Yearly
-              <Chip label="-30%" size="small" color="success" sx={{ ml: 1, height: 18, fontSize: 10, fontWeight: 700 }} />
+              <Chip label="SAVE 37%" size="small" color="success" sx={{ ml: 1, height: 18, fontSize: 10, fontWeight: 700 }} />
             </ToggleButton>
           </ToggleButtonGroup>
         </Stack>
