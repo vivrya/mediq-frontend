@@ -134,6 +134,14 @@ async def waitlist_count():
 # Include the router in the main app
 app.include_router(api_router)
 
+
+@app.on_event("startup")
+async def ensure_indexes():
+    try:
+        await db.waitlist.create_index("email", unique=True)
+    except Exception as exc:
+        logger.warning("Waitlist index not created: %s", exc)
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
