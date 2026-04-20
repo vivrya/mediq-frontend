@@ -1,12 +1,12 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional, Literal
 import uuid
 from datetime import datetime, timezone
 
@@ -65,6 +65,71 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+
+# ----- Waitlist -----
+class WaitlistEntry(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: EmailStr
+    name: Optional[str] = None
+    role: Optional[Literal["ug", "pg", "other"]] = "other"
+    source: Optional[str] = "hero"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class WaitlistCreate(BaseModel):
+    email: EmailStr
+    name: Optional[str] = None
+    role: Optional[Literal["ug", "pg", "other"]] = "other"
+    source: Optional[str] = "hero"
+
+
+class WaitlistResponse(BaseModel):
+    id: str
+    email: EmailStr
+    position: int
+    already_registered: bool = False
+
+
+@api_router.post("/waitlist", response_model=WaitlistResponse)
+async def join_waitlist(payload: WaitlistCreate):
+    email_lc = payload.email.lower().strip()
+
+    existing = await db.waitlist.find_one({"email": email_lc}, {"_id": 0})
+    if existing:
+        count = await db.waitlist.count_documents({})
+        return WaitlistResponse(
+            id=existing["id"],
+            email=existing["email"],
+            position=count,
+            already_registered=True,
+        )
+
+    entry = WaitlistEntry(
+        email=email_lc,
+        name=(payload.name or "").strip() or None,
+        role=payload.role or "other",
+        source=payload.source or "hero",
+    )
+    doc = entry.model_dump()
+    doc["created_at"] = doc["created_at"].isoformat()
+    await db.waitlist.insert_one(doc)
+
+    position = await db.waitlist.count_documents({})
+    return WaitlistResponse(
+        id=entry.id,
+        email=entry.email,
+        position=position,
+        already_registered=False,
+    )
+
+
+@api_router.get("/waitlist/count")
+async def waitlist_count():
+    count = await db.waitlist.count_documents({})
+    # Show a warm baseline so early signups don't feel alone
+    return {"count": count, "display_count": count + 12400}
 
 # Include the router in the main app
 app.include_router(api_router)

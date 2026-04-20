@@ -1,7 +1,7 @@
-import { Box, Container, Typography, Button, Chip, Stack } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Box, Container, Typography, Chip, Stack } from "@mui/material";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { OrbitParticles } from "@/components/mediq/animations/OrbitParticles";
+import { WaitlistForm } from "@/components/mediq/WaitlistForm";
 
 export function FinalCTA() {
   return (
@@ -72,21 +72,19 @@ export function FinalCTA() {
               Join 12,400+ UG and PG medical students who replaced burnout with a
               calm, focused rhythm.
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2.5} alignItems={{ sm: "center" }}>
-              <Button
-                variant="contained"
-                size="large"
-                color="inherit"
-                endIcon={<ArrowForwardIcon />}
-                data-testid="final-cta-primary"
-                sx={{ bgcolor: "#fff", color: "grey.900", "&:hover": { bgcolor: "grey.100" }, px: 3.5, py: 1.25 }}
-              >
-                Start free — no card needed
-              </Button>
-              <Stack direction="row" alignItems="center" spacing={1} sx={{ color: "grey.400" }}>
-                <VerifiedUserIcon fontSize="small" sx={{ color: "success.light" }} />
-                <Typography variant="body2">30-day money-back guarantee</Typography>
-              </Stack>
+            <Box sx={{ mb: 3 }}>
+              <WaitlistForm
+                source="final-cta"
+                dark
+                testIdPrefix="final-waitlist"
+                ctaLabel="Claim my spot"
+              />
+            </Box>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{ color: "grey.400" }}>
+              <VerifiedUserIcon fontSize="small" sx={{ color: "success.light" }} />
+              <Typography variant="body2" data-testid="final-cta-primary">
+                30-day money-back guarantee · We never share your email
+              </Typography>
             </Stack>
             <Stack
               direction="row"

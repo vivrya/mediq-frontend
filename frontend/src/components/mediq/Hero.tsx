@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckIcon from "@mui/icons-material/Check";
 import { NeuralNet } from "@/components/mediq/animations/NeuralNet";
+import { WaitlistForm } from "@/components/mediq/WaitlistForm";
 
 const HERO_IMG =
   "https://static.prod-images.emergentagent.com/jobs/6884ab8f-c36c-4a9c-aa44-f69c2646dc8a/images/887afc6ba91775830fc0d3e48d9c29d0e943f11dc8b671f42a1a3d84fa78bdd9.png";
@@ -65,31 +65,23 @@ export function Hero() {
               adaptive flashcards and focus sprints — engineered for ADHD minds,
               loved by every medic.
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2} alignItems="flex-start">
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2} alignItems="flex-start" sx={{ mb: 3 }}>
+              <WaitlistForm source="hero" testIdPrefix="hero-waitlist" ctaLabel="Get early access" />
+            </Stack>
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 0 }}>
               <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                endIcon={<ArrowForwardIcon />}
-                href="#pricing"
-                data-testid="hero-cta-primary"
-                sx={{ px: 3.5, py: 1.25 }}
-              >
-                Start learning free
-              </Button>
-              <Button
-                variant="outlined"
-                size="large"
+                variant="text"
+                size="small"
                 href="#video-demo"
                 data-testid="hero-cta-secondary"
                 startIcon={
-                  <Avatar sx={{ bgcolor: "success.main", width: 28, height: 28 }}>
-                    <PlayArrowIcon sx={{ fontSize: 16, color: "#fff" }} />
+                  <Avatar sx={{ bgcolor: "success.main", width: 24, height: 24 }}>
+                    <PlayArrowIcon sx={{ fontSize: 14, color: "#fff" }} />
                   </Avatar>
                 }
-                sx={{ px: 2.5, py: 1.25, color: "text.primary", borderColor: "divider" }}
+                sx={{ color: "text.secondary", textDecoration: "underline", textUnderlineOffset: 3 }}
               >
-                Watch 60-sec demo
+                Or watch the 60-sec demo
               </Button>
             </Stack>
 
