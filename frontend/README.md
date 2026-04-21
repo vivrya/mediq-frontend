@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# MediQ Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MediQ is a medical intelligence platform. This repository contains the React-based frontend, including a marketing landing page and an application dashboard.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- **React 19** with TypeScript
+- **React Router v7** — client-side routing
+- **Material-UI (MUI) v6** — component library and theming
+- **Tailwind CSS v3** — utility-first styling with shadcn/Radix UI primitives
+- **Craco** — Create React App customization (Webpack, dev server)
+- **Axios** — HTTP client for API calls
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js 18+
+- Yarn 1.22+
 
-### `npm test`
+### Install dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn install
+```
 
-### `npm run build`
+### Run the development server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Opens at [http://localhost:3000](http://localhost:3000). The page hot-reloads on changes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Build for production
 
-### `npm run eject`
+```bash
+yarn build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Output is in the `/build` directory.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Run tests
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+yarn test
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```
+src/
+├── components/
+│   ├── mediq/          # Landing page sections (Hero, Features, Pricing, FAQ, …)
+│   │   └── animations/ # Custom SVG/canvas animations
+│   └── ui/             # shadcn-based primitive components (Radix UI wrappers)
+├── pages/              # Full page components (Dashboard)
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions (cn() class merger)
+└── theme.ts            # MUI theme builder (light/dark palettes)
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Environment Variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a `.env.local` file in the project root:
 
-### Code Splitting
+```env
+REACT_APP_BACKEND_URL=http://localhost:8000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Routes
 
-### Analyzing the Bundle Size
+| Path         | Description                          |
+|--------------|--------------------------------------|
+| `/`          | Marketing landing page               |
+| `/dashboard` | Application dashboard with sidebar   |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Create a feature branch from `dev`
+2. Make your changes
+3. Open a merge request targeting `dev`
