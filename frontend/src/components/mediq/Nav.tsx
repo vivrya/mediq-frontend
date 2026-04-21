@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link as RouterLink } from "react-router-dom";
 import { Logo } from "@/components/mediq/Logo";
 import { ThemeToggle } from "@/components/mediq/ThemeToggle";
 
@@ -82,11 +83,12 @@ export function Nav() {
                 variant="contained"
                 color="primary"
                 size="small"
-                href="#pricing"
-                data-testid="nav-cta-get-access"
+                component={RouterLink}
+                to="/dashboard"
+                data-testid="nav-cta-sign-up"
                 sx={{ display: { xs: "none", sm: "inline-flex" }, px: 2.5 }}
               >
-                Get Access
+                Sign up
               </Button>
               <IconButton
                 onClick={() => setOpen(true)}
@@ -143,11 +145,12 @@ export function Nav() {
           fullWidth
           variant="contained"
           sx={{ mt: 2 }}
-          href="#pricing"
+          component={RouterLink}
+          to="/dashboard"
           onClick={() => setOpen(false)}
           data-testid="mobile-nav-cta"
         >
-          Get Access
+          Sign up
         </Button>
       </Drawer>
     </>

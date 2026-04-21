@@ -15,6 +15,7 @@ import { Pricing } from "@/components/mediq/Pricing";
 import { FAQ } from "@/components/mediq/FAQ";
 import { FinalCTA } from "@/components/mediq/FinalCTA";
 import { Footer } from "@/components/mediq/Footer";
+import Dashboard from "@/pages/Dashboard";
 
 function Landing() {
   return (
@@ -45,6 +46,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </AppThemeProvider>
