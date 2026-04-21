@@ -25,7 +25,7 @@ import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
 import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
 import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -166,7 +166,7 @@ export default function Dashboard() {
             sx={{ borderRadius: 2, mt: 2 }}
           >
             <ListItemIcon sx={{ minWidth: 36, color: "text.secondary" }}>
-              <LogoutOutlinedIcon fontSize="small" />
+              <ArrowBackIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText primaryTypographyProps={{ fontSize: 14, fontWeight: 600 }}>
               Back to site
