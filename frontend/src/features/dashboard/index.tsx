@@ -32,8 +32,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { Logo } from "@/components/mediq/Logo";
-import { ThemeToggle } from "@/components/mediq/ThemeToggle";
+import { Logo } from "@/components/shared/Logo";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 const SIDEBAR_WIDTH = 248;
 

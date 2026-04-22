@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { waitlistApi } from "@/services/waitlist";
+import type { Role } from "@/types";
 import {
   Box,
   Stack,
@@ -16,10 +17,6 @@ import {
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
-const API = (process.env.REACT_APP_BACKEND_URL || "") + "/api";
-
-type Role = "ug" | "pg" | "other";
 
 interface Props {
   source?: string;
@@ -46,15 +43,10 @@ export function WaitlistForm({
 
   useEffect(() => {
     let alive = true;
-    axios
-      .get(`${API}/waitlist/count`)
-      .then((r) => {
-        if (alive) setDisplay(r.data.display_count);
-      })
+    waitlistApi.getCount()
+      .then((data) => { if (alive) setDisplay(data.display_count); })
       .catch(() => {});
-    return () => {
-      alive = false;
-    };
+    return () => { alive = false; };
   }, []);
 
   const submit = async (e?: React.FormEvent) => {
@@ -67,11 +59,7 @@ export function WaitlistForm({
     setLoading(true);
     setError(null);
     try {
-      const { data } = await axios.post(`${API}/waitlist`, {
-        email: v,
-        role,
-        source,
-      });
+      const data = await waitlistApi.signup({ email: v, role, source });
       setPosition(data.position);
       setDone(true);
       setEmail("");

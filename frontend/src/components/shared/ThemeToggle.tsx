@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from "@mui/material";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import { useColorMode } from "@/components/mediq/ThemeProvider";
+import { useColorMode } from "@/providers/ThemeProvider";
 
 export function ThemeToggle() {
   const { mode, toggle } = useColorMode();

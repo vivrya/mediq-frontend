@@ -4,7 +4,7 @@ import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import WavesIcon from "@mui/icons-material/Waves";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
-import { CellMitosis } from "@/components/mediq/animations/CellMitosis";
+import { CellMitosis } from "@/components/animations/CellMitosis";
 
 const pillars = [
   { icon: PsychologyAltIcon, title: "Chunked cognition", body: "Lessons under 7 minutes match a distractible attention span — without losing depth." },

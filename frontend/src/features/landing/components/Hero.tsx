@@ -12,8 +12,8 @@ import {
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CheckIcon from "@mui/icons-material/Check";
-import { NeuralNet } from "@/components/mediq/animations/NeuralNet";
-import { WaitlistForm } from "@/components/mediq/WaitlistForm";
+import { NeuralNet } from "@/components/animations/NeuralNet";
+import { WaitlistForm } from "@/components/shared/WaitlistForm";
 
 const HERO_IMG =
   "https://static.prod-images.emergentagent.com/jobs/6884ab8f-c36c-4a9c-aa44-f69c2646dc8a/images/887afc6ba91775830fc0d3e48d9c29d0e943f11dc8b671f42a1a3d84fa78bdd9.png";

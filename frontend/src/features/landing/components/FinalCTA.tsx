@@ -1,7 +1,7 @@
 import { Box, Container, Typography, Chip, Stack } from "@mui/material";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import { OrbitParticles } from "@/components/mediq/animations/OrbitParticles";
-import { WaitlistForm } from "@/components/mediq/WaitlistForm";
+import { OrbitParticles } from "@/components/animations/OrbitParticles";
+import { WaitlistForm } from "@/components/shared/WaitlistForm";
 
 export function FinalCTA() {
   return (

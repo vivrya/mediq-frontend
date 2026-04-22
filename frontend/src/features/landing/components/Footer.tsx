@@ -12,7 +12,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import { Logo } from "@/components/mediq/Logo";
+import { Logo } from "@/components/shared/Logo";
 
 const cols = [
   { title: "Product", links: ["Features", "ADHD Method", "Video chunks", "Progress", "Pricing"] },

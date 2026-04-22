@@ -15,8 +15,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link as RouterLink } from "react-router-dom";
-import { Logo } from "@/components/mediq/Logo";
-import { ThemeToggle } from "@/components/mediq/ThemeToggle";
+import { Logo } from "@/components/shared/Logo";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 const links = [
   { label: "Features", href: "#features" },
