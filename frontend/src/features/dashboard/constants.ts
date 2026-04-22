@@ -4,12 +4,13 @@ export const SIDEBAR = {
   upgradeButton: "See plans",
   backToSite: "Back to site",
   navItems: [
-    { label: "Dashboard", active: true, testid: "dash-nav-home" },
-    { label: "My Courses", testid: "dash-nav-courses" },
-    { label: "Video Chunks", testid: "dash-nav-videos" },
-    { label: "Flashcards", testid: "dash-nav-flashcards" },
-    { label: "Progress", testid: "dash-nav-progress" },
-    { label: "Settings", testid: "dash-nav-settings" },
+    { label: "Dashboard", testid: "dash-nav-home", to: "/dashboard" },
+    { label: "My Courses", testid: "dash-nav-courses", to: "/dashboard/my-courses" },
+    { label: "Courses", testid: "dash-nav-browse", to: "/dashboard/courses" },
+    { label: "Video Chunks", testid: "dash-nav-videos", to: "/dashboard/videos" },
+    { label: "Flashcards", testid: "dash-nav-flashcards", to: "/dashboard/flashcards" },
+    { label: "Progress", testid: "dash-nav-progress", to: "/dashboard/progress" },
+    { label: "Settings", testid: "dash-nav-settings", to: "/dashboard/settings" },
   ],
 };
 

@@ -13,20 +13,12 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { DashboardSidebar } from "./components/DashboardSidebar";
-import { DashboardHeader } from "./components/DashboardHeader";
 import { AvailablePlans } from "./components/AvailablePlans";
 import { SectionHeader } from "./components/SectionHeader";
 import { WELCOME, MY_COURSES, CONTINUE_LEARNING, FLASHCARDS_PREVIEW } from "./constants";
 
 export default function DashboardPage() {
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "background.default", display: "flex" }}>
-      <DashboardSidebar />
-
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <DashboardHeader />
-
         <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           {/* Welcome */}
           <Box sx={{ mb: 5 }} data-testid="dash-welcome">
@@ -140,7 +132,5 @@ export default function DashboardPage() {
             </Grid>
           </Grid>
         </Container>
-      </Box>
-    </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
   Box,
   Stack,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
 import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
 import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
@@ -29,6 +30,7 @@ export const SIDEBAR_WIDTH = 248;
 const navIcons = [
   DashboardOutlinedIcon,
   MenuBookOutlinedIcon,
+  SchoolOutlinedIcon,
   PlayCircleOutlinedIcon,
   LayersOutlinedIcon,
   InsightsOutlinedIcon,
@@ -36,6 +38,8 @@ const navIcons = [
 ];
 
 export function DashboardSidebar() {
+  const { pathname } = useLocation();
+
   return (
     <Drawer
       variant="permanent"
@@ -62,11 +66,14 @@ export function DashboardSidebar() {
       <List sx={{ p: 0 }}>
         {SIDEBAR.navItems.map((it, i) => {
           const Icon = navIcons[i];
+          const isActive = it.to === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(it.to);
           return (
             <ListItemButton
               key={it.label}
+              component={RouterLink}
+              to={it.to}
               data-testid={it.testid}
-              selected={it.active}
+              selected={isActive}
               sx={{
                 borderRadius: 2,
                 mb: 0.5,
