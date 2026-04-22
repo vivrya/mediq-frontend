@@ -1,38 +1,22 @@
 import { useEffect, useState } from "react";
 import {
-  AppBar,
-  Toolbar,
-  Container,
-  Stack,
-  Button,
-  Drawer,
-  IconButton,
-  Box,
-  Link as MuiLink,
-  Divider,
-  useTheme,
+  AppBar, Toolbar, Container, Stack, Button, Drawer,
+  IconButton, Box, Link as MuiLink, Divider, useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link as RouterLink } from "react-router-dom";
 import { Logo } from "@/components/shared/Logo";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
-
-const links = [
-  { label: "Features", href: "#features" },
-  { label: "Method", href: "#method" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
-];
+import { NAV } from "../constants";
 
 export function Nav() {
+  const theme = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -41,116 +25,62 @@ export function Nav() {
     <>
       <AppBar
         position="fixed"
-        color="transparent"
+        elevation={scrolled ? 2 : 0}
         sx={{
-          backgroundColor: scrolled
-            ? theme.palette.mode === "dark"
-              ? "rgba(17,24,39,0.8)"
-              : "rgba(255,255,255,0.8)"
-            : "transparent",
-          backdropFilter: scrolled ? "saturate(180%) blur(14px)" : "none",
+          bgcolor: scrolled ? "background.paper" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
           borderBottom: scrolled ? 1 : 0,
           borderColor: "divider",
           transition: "all .25s ease",
+          color: "text.primary",
         }}
+        data-testid="nav"
       >
         <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{ minHeight: 64, gap: 2 }}>
+          <Toolbar disableGutters sx={{ py: 1 }}>
             <Logo />
-            <Box sx={{ flex: 1 }} />
-            <Stack
-              direction="row"
-              spacing={0.5}
-              sx={{ display: { xs: "none", md: "flex" } }}
-              data-testid="primary-nav"
-            >
-              {links.map((l) => (
-                <Button
-                  key={l.href}
-                  href={l.href}
-                  color="inherit"
-                  size="small"
-                  data-testid={`nav-${l.label.toLowerCase()}`}
-                  sx={{ color: "text.secondary", px: 1.5 }}
-                >
+            <Stack direction="row" spacing={3} alignItems="center" sx={{ ml: 5, display: { xs: "none", md: "flex" }, flex: 1 }}>
+              {NAV.links.map((l) => (
+                <MuiLink key={l.label} href={l.href} underline="hover" color="text.secondary" variant="body2" sx={{ fontWeight: 500, "&:hover": { color: "text.primary" } }}>
                   {l.label}
-                </Button>
+                </MuiLink>
               ))}
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={1.25}>
+            <Stack direction="row" spacing={1.5} alignItems="center" sx={{ ml: "auto" }}>
               <ThemeToggle />
               <Button
-                variant="contained"
-                color="primary"
-                size="small"
                 component={RouterLink}
                 to="/dashboard"
-                data-testid="nav-cta-sign-up"
-                sx={{ display: { xs: "none", sm: "inline-flex" }, px: 2.5 }}
+                variant="contained"
+                size="small"
+                data-testid="nav-signup"
+                sx={{ display: { xs: "none", md: "inline-flex" }, fontWeight: 700, px: 2.5 }}
               >
-                Sign up
+                {NAV.cta}
               </Button>
-              <IconButton
-                onClick={() => setOpen(true)}
-                data-testid="mobile-menu-toggle"
-                sx={{
-                  display: { md: "none" },
-                  border: 1,
-                  borderColor: "divider",
-                  width: 36,
-                  height: 36,
-                }}
-              >
-                <MenuIcon fontSize="small" />
+              <IconButton onClick={() => setOpen(true)} sx={{ display: { md: "none" } }} data-testid="nav-menu">
+                <MenuIcon />
               </IconButton>
             </Stack>
           </Toolbar>
         </Container>
       </AppBar>
-      <Drawer
-        anchor="right"
-        open={open}
-        onClose={() => setOpen(false)}
-        sx={{ display: { md: "none" } }}
-        PaperProps={{ sx: { width: 280, p: 2 } }}
-      >
-        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+
+      <Drawer anchor="right" open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { width: 280, p: 3 } }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Logo />
-          <IconButton onClick={() => setOpen(false)}>
-            <CloseIcon />
-          </IconButton>
+          <IconButton onClick={() => setOpen(false)}><CloseIcon /></IconButton>
         </Stack>
-        <Divider sx={{ mb: 1 }} />
-        <Stack>
-          {links.map((l) => (
-            <MuiLink
-              key={l.href}
-              href={l.href}
-              underline="none"
-              onClick={() => setOpen(false)}
-              data-testid={`mobile-nav-${l.label.toLowerCase()}`}
-              sx={{
-                py: 1.25,
-                px: 1.5,
-                borderRadius: 1,
-                color: "text.primary",
-                "&:hover": { bgcolor: "action.hover" },
-              }}
-            >
+        <Divider sx={{ mb: 2 }} />
+        <Stack spacing={1}>
+          {NAV.links.map((l) => (
+            <MuiLink key={l.label} href={l.href} underline="hover" color="text.primary" variant="body1" sx={{ fontWeight: 500, py: 0.5 }} onClick={() => setOpen(false)}>
               {l.label}
             </MuiLink>
           ))}
         </Stack>
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 2 }}
-          component={RouterLink}
-          to="/dashboard"
-          onClick={() => setOpen(false)}
-          data-testid="mobile-nav-cta"
-        >
-          Sign up
+        <Button component={RouterLink} to="/dashboard" variant="contained" fullWidth sx={{ mt: 3, fontWeight: 700 }} onClick={() => setOpen(false)}>
+          {NAV.cta}
         </Button>
       </Drawer>
     </>

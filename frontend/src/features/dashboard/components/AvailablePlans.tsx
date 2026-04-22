@@ -2,44 +2,18 @@ import { Box, Typography, Card, Stack, Chip, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { SectionHeader } from "./SectionHeader";
-
-const fullPlans = [
-  {
-    id: "ug",
-    name: "UG Complete Plan",
-    tag: "For MBBS UG",
-    price: "$12",
-    cadence: "/ month",
-    features: ["All UG subjects & chunks", "Adaptive flashcards", "Focus mode + streaks", "Export to Anki / Notion"],
-    highlight: true,
-  },
-  {
-    id: "pg",
-    name: "PG Complete Plan",
-    tag: "USMLE · NEET PG · PLAB",
-    price: "$29",
-    cadence: "/ month",
-    features: ["All PG MCQ banks (20k+)", "Mock exams with analytics", "1:1 mentor sessions", "Priority support"],
-  },
-];
-
-const subjectPlans = [
-  { id: "anatomy", name: "Anatomy", chapters: 42, price: "$6", color: "#0F52BA" },
-  { id: "pharmacology", name: "Pharmacology", chapters: 38, price: "$6", color: "#10B981" },
-  { id: "pathology", name: "Pathology", chapters: 35, price: "$6", color: "#7C3AED" },
-  { id: "medicine", name: "Medicine", chapters: 64, price: "$8", color: "#F59E0B" },
-];
+import { AVAILABLE_PLANS } from "../constants";
 
 export function AvailablePlans() {
   return (
     <Box sx={{ mb: 6 }} id="plans" data-testid="dash-available-plans">
-      <SectionHeader title="Available plans" subtitle="Full plans or single subjects — pick your pace" />
+      <SectionHeader title={AVAILABLE_PLANS.title} subtitle={AVAILABLE_PLANS.subtitle} />
 
       <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.15em", display: "block", mb: 1.5 }}>
-        FULL PLANS
+        {AVAILABLE_PLANS.fullPlansLabel}
       </Typography>
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        {fullPlans.map((p) => (
+        {AVAILABLE_PLANS.fullPlans.map((p) => (
           <Grid size={{ xs: 12, md: 6 }} key={p.id}>
             <Card
               variant={p.highlight ? "elevation" : "outlined"}
@@ -54,7 +28,7 @@ export function AvailablePlans() {
             >
               {p.highlight && (
                 <Chip
-                  label="MOST POPULAR"
+                  label={AVAILABLE_PLANS.highlightBadge}
                   color="primary"
                   size="small"
                   sx={{ position: "absolute", top: 16, right: 16, fontWeight: 700, letterSpacing: "0.1em" }}
@@ -90,7 +64,7 @@ export function AvailablePlans() {
                 sx={{ mt: 3 }}
                 data-testid={`dash-plan-${p.id}-buy`}
               >
-                Buy now
+                {AVAILABLE_PLANS.buyButton}
               </Button>
             </Card>
           </Grid>
@@ -98,10 +72,10 @@ export function AvailablePlans() {
       </Grid>
 
       <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.15em", display: "block", mb: 1.5 }}>
-        SUBJECT-WISE PLANS
+        {AVAILABLE_PLANS.subjectPlansLabel}
       </Typography>
       <Grid container spacing={2.5}>
-        {subjectPlans.map((s) => (
+        {AVAILABLE_PLANS.subjectPlans.map((s) => (
           <Grid size={{ xs: 12, sm: 6, md: 3 }} key={s.id}>
             <Card
               variant="outlined"
@@ -133,14 +107,14 @@ export function AvailablePlans() {
                 {s.name}
               </Typography>
               <Typography variant="caption" color="text.secondary">
-                {s.chapters} chapters · 3-7 min chunks
+                {s.chapters} {AVAILABLE_PLANS.subjectMeta}
               </Typography>
               <Stack direction="row" alignItems="flex-end" spacing={0.5} sx={{ mt: 2 }}>
                 <Typography variant="h5" sx={{ fontWeight: 700 }}>
                   {s.price}
                 </Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ pb: 0.4 }}>
-                  / month
+                  {AVAILABLE_PLANS.subjectCadence}
                 </Typography>
               </Stack>
               <Button
@@ -151,7 +125,7 @@ export function AvailablePlans() {
                 sx={{ mt: 2 }}
                 data-testid={`dash-subject-${s.id}-buy`}
               >
-                Buy now
+                {AVAILABLE_PLANS.buyButton}
               </Button>
             </Card>
           </Grid>

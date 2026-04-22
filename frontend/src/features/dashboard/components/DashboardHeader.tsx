@@ -2,6 +2,7 @@ import { Box, Container, Stack, Typography, Chip, Avatar, IconButton, Tooltip } 
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { HEADER } from "../constants";
 
 export function DashboardHeader() {
   return (
@@ -20,26 +21,26 @@ export function DashboardHeader() {
         <Stack direction="row" alignItems="center" py={2} spacing={2}>
           <Box sx={{ flex: 1 }}>
             <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.18em", display: "block", lineHeight: 1 }}>
-              MONDAY · DAY 14
+              {HEADER.dayLabel}
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }} data-testid="dash-header-title">
-              Dashboard
+              {HEADER.title}
             </Typography>
           </Box>
           <Chip
             icon={<LocalFireDepartmentIcon sx={{ color: "#F59E0B !important" }} />}
-            label="14-day streak"
+            label={HEADER.streakLabel}
             data-testid="dash-streak"
             sx={{ fontWeight: 600 }}
           />
-          <Tooltip title="Notifications">
+          <Tooltip title={HEADER.notificationsTooltip}>
             <IconButton sx={{ border: 1, borderColor: "divider" }} data-testid="dash-notifications">
               <NotificationsNoneIcon fontSize="small" />
             </IconButton>
           </Tooltip>
           <ThemeToggle />
           <Avatar sx={{ bgcolor: "primary.main", width: 36, height: 36, fontWeight: 700 }} data-testid="dash-avatar">
-            M
+            {HEADER.avatarInitial}
           </Avatar>
         </Stack>
       </Container>

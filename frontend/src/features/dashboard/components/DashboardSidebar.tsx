@@ -22,16 +22,17 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Logo } from "@/components/shared/Logo";
+import { SIDEBAR } from "../constants";
 
 export const SIDEBAR_WIDTH = 248;
 
-const navItems = [
-  { icon: DashboardOutlinedIcon, label: "Dashboard", active: true, testid: "dash-nav-home" },
-  { icon: MenuBookOutlinedIcon, label: "My Courses", testid: "dash-nav-courses" },
-  { icon: PlayCircleOutlinedIcon, label: "Video Chunks", testid: "dash-nav-videos" },
-  { icon: LayersOutlinedIcon, label: "Flashcards", testid: "dash-nav-flashcards" },
-  { icon: InsightsOutlinedIcon, label: "Progress", testid: "dash-nav-progress" },
-  { icon: SettingsOutlinedIcon, label: "Settings", testid: "dash-nav-settings" },
+const navIcons = [
+  DashboardOutlinedIcon,
+  MenuBookOutlinedIcon,
+  PlayCircleOutlinedIcon,
+  LayersOutlinedIcon,
+  InsightsOutlinedIcon,
+  SettingsOutlinedIcon,
 ];
 
 export function DashboardSidebar() {
@@ -59,8 +60,8 @@ export function DashboardSidebar() {
       </Box>
       <Divider sx={{ mb: 2 }} />
       <List sx={{ p: 0 }}>
-        {navItems.map((it) => {
-          const Icon = it.icon;
+        {SIDEBAR.navItems.map((it, i) => {
+          const Icon = navIcons[i];
           return (
             <ListItemButton
               key={it.label}
@@ -101,11 +102,11 @@ export function DashboardSidebar() {
           <Stack direction="row" alignItems="center" spacing={1}>
             <AutoAwesomeIcon fontSize="small" color="primary" />
             <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.dark" }}>
-              Upgrade to Pro
+              {SIDEBAR.upgradeTitle}
             </Typography>
           </Stack>
           <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 0.5 }}>
-            Unlock all chunks, adaptive flashcards and mock exams.
+            {SIDEBAR.upgradeDescription}
           </Typography>
           <Button
             fullWidth
@@ -116,7 +117,7 @@ export function DashboardSidebar() {
             sx={{ mt: 1.5 }}
             href="#plans"
           >
-            See plans
+            {SIDEBAR.upgradeButton}
           </Button>
         </Card>
         <ListItemButton
@@ -129,7 +130,7 @@ export function DashboardSidebar() {
             <ArrowBackIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primaryTypographyProps={{ fontSize: 14, fontWeight: 600 }}>
-            Back to site
+            {SIDEBAR.backToSite}
           </ListItemText>
         </ListItemButton>
       </Box>

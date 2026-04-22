@@ -17,6 +17,7 @@ import {
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { WAITLIST_FORM } from "./constants";
 
 interface Props {
   source?: string;
@@ -30,7 +31,7 @@ export function WaitlistForm({
   source = "hero",
   dark = false,
   showRole = true,
-  ctaLabel = "Request early access",
+  ctaLabel = WAITLIST_FORM.defaultCtaLabel,
   testIdPrefix = "waitlist",
 }: Props) {
   const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ export function WaitlistForm({
     e?.preventDefault();
     const v = email.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-      setError("Please enter a valid email address.");
+      setError(WAITLIST_FORM.errors.invalidEmail);
       return;
     }
     setLoading(true);
@@ -65,8 +66,7 @@ export function WaitlistForm({
       setEmail("");
     } catch (err: any) {
       setError(
-        err?.response?.data?.detail?.toString?.() ||
-          "Something went wrong. Please try again.",
+        err?.response?.data?.detail?.toString?.() || WAITLIST_FORM.errors.generic,
       );
     } finally {
       setLoading(false);
@@ -96,8 +96,7 @@ export function WaitlistForm({
       >
         <CheckCircleIcon fontSize="small" />
         <Typography variant="body2" sx={{ fontWeight: 600 }}>
-          You're in{position ? ` — spot #${position}` : ""}. We'll email you
-          when your slot opens.
+          {WAITLIST_FORM.successMessage(position)}
         </Typography>
       </Box>
     );
@@ -121,48 +120,23 @@ export function WaitlistForm({
             borderColor: dark ? "rgba(255,255,255,.1)" : "divider",
           }}
         >
-          <ToggleButton
-            value="ug"
-            data-testid={`${testIdPrefix}-role-ug`}
-            sx={{
-              border: 0,
-              borderRadius: "999px !important",
-              px: 2,
-              py: 0.5,
-              fontSize: 12,
-              color: dark ? "grey.300" : "text.secondary",
-            }}
-          >
-            UG student
-          </ToggleButton>
-          <ToggleButton
-            value="pg"
-            data-testid={`${testIdPrefix}-role-pg`}
-            sx={{
-              border: 0,
-              borderRadius: "999px !important",
-              px: 2,
-              py: 0.5,
-              fontSize: 12,
-              color: dark ? "grey.300" : "text.secondary",
-            }}
-          >
-            PG aspirant
-          </ToggleButton>
-          <ToggleButton
-            value="other"
-            data-testid={`${testIdPrefix}-role-other`}
-            sx={{
-              border: 0,
-              borderRadius: "999px !important",
-              px: 2,
-              py: 0.5,
-              fontSize: 12,
-              color: dark ? "grey.300" : "text.secondary",
-            }}
-          >
-            Curious
-          </ToggleButton>
+          {(["ug", "pg", "other"] as Role[]).map((r) => (
+            <ToggleButton
+              key={r}
+              value={r}
+              data-testid={`${testIdPrefix}-role-${r}`}
+              sx={{
+                border: 0,
+                borderRadius: "999px !important",
+                px: 2,
+                py: 0.5,
+                fontSize: 12,
+                color: dark ? "grey.300" : "text.secondary",
+              }}
+            >
+              {WAITLIST_FORM.roles[r]}
+            </ToggleButton>
+          ))}
         </ToggleButtonGroup>
       )}
 
@@ -170,7 +144,7 @@ export function WaitlistForm({
         <TextField
           fullWidth
           type="email"
-          placeholder="your@email.com"
+          placeholder={WAITLIST_FORM.emailPlaceholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           data-testid={`${testIdPrefix}-email`}
@@ -189,12 +163,8 @@ export function WaitlistForm({
               bgcolor: dark ? "rgba(255,255,255,.06)" : "background.paper",
               color: inputColor,
               "& input::placeholder": { color: placeholderColor, opacity: 1 },
-              "& fieldset": {
-                borderColor: dark ? "rgba(255,255,255,.15)" : undefined,
-              },
-              "&:hover fieldset": {
-                borderColor: dark ? "rgba(255,255,255,.3)" : undefined,
-              },
+              "& fieldset": { borderColor: dark ? "rgba(255,255,255,.15)" : undefined },
+              "&:hover fieldset": { borderColor: dark ? "rgba(255,255,255,.3)" : undefined },
             },
           }}
         />
@@ -204,13 +174,7 @@ export function WaitlistForm({
           color="primary"
           data-testid={`${testIdPrefix}-submit`}
           disabled={loading}
-          endIcon={
-            loading ? (
-              <CircularProgress size={16} color="inherit" />
-            ) : (
-              <ArrowForwardIcon />
-            )
-          }
+          endIcon={loading ? <CircularProgress size={16} color="inherit" /> : <ArrowForwardIcon />}
           sx={{ whiteSpace: "nowrap", px: 3.5 }}
         >
           {ctaLabel}
@@ -219,15 +183,9 @@ export function WaitlistForm({
 
       <Typography
         variant="caption"
-        sx={{
-          display: "block",
-          mt: 1.25,
-          color: dark ? "rgba(255,255,255,.55)" : "text.secondary",
-        }}
+        sx={{ display: "block", mt: 1.25, color: dark ? "rgba(255,255,255,.55)" : "text.secondary" }}
       >
-        {display !== null
-          ? `${display.toLocaleString()}+ medics ahead of you. Free forever tier. No spam.`
-          : "Free forever tier. No spam. Unsubscribe in one click."}
+        {display !== null ? WAITLIST_FORM.captionWithCount(display) : WAITLIST_FORM.captionDefault}
       </Typography>
 
       <Snackbar
