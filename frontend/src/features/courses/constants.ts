@@ -14,7 +14,7 @@ export interface Course {
   name: string;
   category: string;
   tagline: string;
-  instructor: string;
+  instructor?: string;
   level: Level;
   chapters: number;
   totalDuration: string;
@@ -63,7 +63,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Anatomy",
         category: "Pre-Clinical",
         tagline: "Master the human body from surface to deep structures",
-        instructor: "Dr. Sarah Mathews",
+        instructor: "Dr. Priti",
         level: "Beginner",
         chapters: 42,
         totalDuration: "18h 30m",
@@ -85,7 +85,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Physiology",
         category: "Pre-Clinical",
         tagline: "Understand how the body functions at every level",
-        instructor: "Dr. Raj Nair",
+        instructor: "Dr. Priti",
         level: "Beginner",
         chapters: 36,
         totalDuration: "15h 20m",
@@ -106,7 +106,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Biochemistry",
         category: "Pre-Clinical",
         tagline: "Enzymes, metabolism and molecular biology made simple",
-        instructor: "Dr. Priya Sharma",
+        instructor: "Dr. Priti",
         level: "Intermediate",
         chapters: 30,
         totalDuration: "12h 10m",
@@ -133,7 +133,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Medicine",
         category: "Clinical Sciences",
         tagline: "Comprehensive internal medicine for clinical exams",
-        instructor: "Dr. Anil Kapoor",
+        instructor: "Dr. Priti",
         level: "Advanced",
         chapters: 64,
         totalDuration: "28h 45m",
@@ -155,7 +155,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Pharmacology",
         category: "Clinical Sciences",
         tagline: "Drug mechanisms, side effects and clinical use",
-        instructor: "Dr. Lisa Chen",
+        instructor: "Dr. Priti",
         level: "Intermediate",
         chapters: 38,
         totalDuration: "16h 00m",
@@ -175,7 +175,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Pathology",
         category: "Clinical Sciences",
         tagline: "Disease mechanisms and histopathology",
-        instructor: "Dr. Michael Torres",
+        instructor: "Dr. Priti",
         level: "Intermediate",
         chapters: 35,
         totalDuration: "14h 50m",
@@ -201,7 +201,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Pediatrics",
         category: "Specialty",
         tagline: "Child health, growth and common paediatric conditions",
-        instructor: "Dr. Neha Gupta",
+        instructor: "Dr. Priti",
         level: "Advanced",
         chapters: 28,
         totalDuration: "11h 30m",
@@ -221,7 +221,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         name: "Obstetrics & Gynecology",
         category: "Specialty",
         tagline: "Antenatal care, labour and gynaecological disorders",
-        instructor: "Dr. Sunita Rao",
+        instructor: "Dr. Priti",
         level: "Advanced",
         chapters: 32,
         totalDuration: "13h 00m",

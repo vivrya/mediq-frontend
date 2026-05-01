@@ -8,6 +8,7 @@ import {
 } from "react";
 import { ThemeProvider as MuiThemeProvider, CssBaseline, PaletteMode } from "@mui/material";
 import { buildTheme } from "@/theme";
+import { useUserStore } from "@/store/userStore";
 
 interface ColorModeCtx {
   mode: PaletteMode;
@@ -48,7 +49,8 @@ export function AppThemeProvider({ children }: { children: ReactNode }) {
     [mode],
   );
 
-  const theme = useMemo(() => buildTheme(mode), [mode]);
+  const isDyslexicMode = useUserStore((s) => s.isDyslexicMode);
+  const theme = useMemo(() => buildTheme(mode, isDyslexicMode), [mode, isDyslexicMode]);
 
   return (
     <ColorModeContext.Provider value={ctx}>

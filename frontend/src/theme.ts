@@ -2,38 +2,12 @@ import { createTheme, ThemeOptions, PaletteMode, alpha } from "@mui/material";
 
 const baseTypography: ThemeOptions["typography"] = {
   fontFamily: "'Manrope', 'Helvetica', 'Arial', sans-serif",
-  h1: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 700,
-    letterSpacing: "-0.025em",
-    lineHeight: 1.05,
-  },
-  h2: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 700,
-    letterSpacing: "-0.02em",
-    lineHeight: 1.1,
-  },
-  h3: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 700,
-    letterSpacing: "-0.015em",
-  },
-  h4: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 700,
-    letterSpacing: "-0.01em",
-  },
-  h5: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 600,
-    letterSpacing: "-0.01em",
-  },
-  h6: {
-    fontFamily: "'Outfit', 'Manrope', sans-serif",
-    fontWeight: 600,
-    letterSpacing: "-0.01em",
-  },
+  h1: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.05 },
+  h2: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 },
+  h3: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 700, letterSpacing: "-0.015em" },
+  h4: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 700, letterSpacing: "-0.01em" },
+  h5: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 600, letterSpacing: "-0.01em" },
+  h6: { fontFamily: "'Outfit', 'Manrope', sans-serif", fontWeight: 600, letterSpacing: "-0.01em" },
   subtitle1: { fontWeight: 600 },
   subtitle2: { fontWeight: 600 },
   body1: { fontSize: "1rem", lineHeight: 1.65 },
@@ -42,7 +16,23 @@ const baseTypography: ThemeOptions["typography"] = {
   overline: { fontWeight: 700, letterSpacing: "0.18em" },
 };
 
-export function buildTheme(mode: PaletteMode) {
+const dyslexicTypography: ThemeOptions["typography"] = {
+  fontFamily: "'OpenDyslexic', sans-serif",
+  h1: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 700, letterSpacing: "0.02em", lineHeight: 1.4 },
+  h2: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 700, letterSpacing: "0.02em", lineHeight: 1.4 },
+  h3: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 700, letterSpacing: "0.02em" },
+  h4: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 700, letterSpacing: "0.02em" },
+  h5: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 600, letterSpacing: "0.02em" },
+  h6: { fontFamily: "'OpenDyslexic', sans-serif", fontWeight: 600, letterSpacing: "0.02em" },
+  subtitle1: { fontWeight: 600, letterSpacing: "0.02em" },
+  subtitle2: { fontWeight: 600, letterSpacing: "0.02em" },
+  body1: { fontSize: "1.05rem", lineHeight: 1.9, letterSpacing: "0.02em", wordSpacing: "0.1em" },
+  body2: { fontSize: "1rem", lineHeight: 1.85, letterSpacing: "0.02em", wordSpacing: "0.1em" },
+  button: { textTransform: "none", fontWeight: 600, letterSpacing: "0.02em" },
+  overline: { fontWeight: 700, letterSpacing: "0.18em" },
+};
+
+export function buildTheme(mode: PaletteMode, isDyslexicMode = false) {
   const isLight = mode === "light";
   const sapphire = isLight ? "#0F52BA" : "#3B82F6";
   const emerald = "#10B981";
@@ -77,7 +67,7 @@ export function buildTheme(mode: PaletteMode) {
         : { primary: "#F8FAFC", secondary: "#94A3B8" },
       divider: isLight ? "#E2E8F0" : "#1E293B",
     },
-    typography: baseTypography,
+    typography: isDyslexicMode ? dyslexicTypography : baseTypography,
     shape: { borderRadius: 14 },
     shadows: [
       "none",
@@ -91,14 +81,31 @@ export function buildTheme(mode: PaletteMode) {
     ] as any,
     components: {
       MuiCssBaseline: {
-        styleOverrides: {
-          body: {
-            "::selection": {
-              backgroundColor: alpha(sapphire, 0.2),
-              color: isLight ? "#0A0F1C" : "#F8FAFC",
-            },
-          },
-        },
+        styleOverrides: `
+          ${isDyslexicMode ? `
+            @font-face {
+              font-family: 'OpenDyslexic';
+              src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
+              font-weight: 400;
+              font-style: normal;
+              font-display: swap;
+            }
+            @font-face {
+              font-family: 'OpenDyslexic';
+              src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');
+              font-weight: 700;
+              font-style: normal;
+              font-display: swap;
+            }
+          ` : ''}
+          body {
+            selection-background-color: ${alpha(sapphire, 0.2)};
+          }
+          ::selection {
+            background-color: ${alpha(sapphire, 0.2)};
+            color: ${isLight ? "#0A0F1C" : "#F8FAFC"};
+          }
+        `,
       },
       MuiButton: {
         styleOverrides: {

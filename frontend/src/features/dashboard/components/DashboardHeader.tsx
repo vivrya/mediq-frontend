@@ -1,10 +1,24 @@
+import { useState } from "react";
 import { Box, Container, Stack, Typography, Chip, Avatar, IconButton, Tooltip } from "@mui/material";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { ProfileMenu } from "./ProfileMenu";
 import { HEADER } from "../constants";
+import { useUserStore } from "@/store/userStore";
+
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  if (hour < 21) return "Good evening";
+  return "Good evening";
+}
 
 export function DashboardHeader() {
+  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
+  const profile = useUserStore((s) => s.profile);
+
   return (
     <Box
       component="header"
@@ -24,7 +38,7 @@ export function DashboardHeader() {
               {HEADER.dayLabel}
             </Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }} data-testid="dash-header-title">
-              {HEADER.title}
+              {getGreeting()}, {profile.name} 👋
             </Typography>
           </Box>
           <Chip
@@ -39,11 +53,27 @@ export function DashboardHeader() {
             </IconButton>
           </Tooltip>
           <ThemeToggle />
-          <Avatar sx={{ bgcolor: "primary.main", width: 36, height: 36, fontWeight: 700 }} data-testid="dash-avatar">
-            {HEADER.avatarInitial}
-          </Avatar>
+          <Tooltip title="Profile & settings">
+            <Avatar
+              onClick={(e) => setMenuAnchor(e.currentTarget)}
+              sx={{
+                bgcolor: "primary.main",
+                width: 36,
+                height: 36,
+                fontWeight: 700,
+                cursor: "pointer",
+                transition: "box-shadow 0.2s",
+                "&:hover": { boxShadow: 4 },
+              }}
+              data-testid="dash-avatar"
+            >
+              {profile.avatarInitial}
+            </Avatar>
+          </Tooltip>
         </Stack>
       </Container>
+
+      <ProfileMenu anchorEl={menuAnchor} onClose={() => setMenuAnchor(null)} />
     </Box>
   );
 }
