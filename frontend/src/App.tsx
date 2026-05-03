@@ -10,6 +10,10 @@ import CourseDetailPage from "@/features/courses/CourseDetailPage";
 import DecksPage from "@/features/flashcards/DecksPage";
 import FlashcardsCarouselPage from "@/features/flashcards/FlashcardsCarouselPage";
 import DemoPage from "@/features/demo/DemoPage";
+import LoginPage from "@/features/auth/LoginPage";
+import AuthCallbackPage from "@/features/auth/AuthCallbackPage";
+import OnboardingPage from "@/features/auth/OnboardingPage";
+import RequireAuth from "@/features/auth/RequireAuth";
 
 function App() {
   return (
@@ -17,7 +21,24 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route
+            path="/onboarding"
+            element={
+              <RequireAuth>
+                <OnboardingPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <DashboardLayout />
+              </RequireAuth>
+            }
+          >
             <Route index element={<DashboardPage />} />
             <Route path="my-courses" element={<MyCoursesPage />} />
             <Route path="courses" element={<CoursesPage />} />

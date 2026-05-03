@@ -38,6 +38,7 @@ export const SAMPLE_PROFILE: UserProfile = {
 
 interface UserState {
   profile: UserProfile;
+  setProfile: (profile: UserProfile) => void;
   isSubscribed: boolean;
   setSubscribed: (value: boolean) => void;
   isDyslexicMode: boolean;
@@ -48,6 +49,7 @@ export const useUserStore = create<UserState>()(
   persist(
     (set) => ({
       profile: SAMPLE_PROFILE,
+      setProfile: (profile) => set({ profile }),
       isSubscribed: false,
       setSubscribed: (value) => set({ isSubscribed: value }),
       isDyslexicMode: false,

@@ -18,6 +18,7 @@ import AbcIcon from "@mui/icons-material/Abc";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@/store/userStore";
+import { supabase } from "@/lib/supabase";
 
 interface Props {
   anchorEl: HTMLElement | null;
@@ -28,9 +29,12 @@ export function ProfileMenu({ anchorEl, onClose }: Props) {
   const navigate = useNavigate();
   const { profile, isSubscribed, isDyslexicMode, setDyslexicMode } = useUserStore();
 
-  function handleSignOut() {
+  async function handleSignOut() {
     onClose();
-    navigate("/");
+    await supabase.auth.signOut();
+    sessionStorage.clear();
+    localStorage.removeItem("mediq-user");
+    navigate("/login", { replace: true });
   }
 
   function handleUpgrade() {
