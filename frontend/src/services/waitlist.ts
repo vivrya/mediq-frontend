@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { WaitlistPayload, WaitlistCountResponse, WaitlistSignupResponse } from "@/types";
 
-const API = (process.env.REACT_APP_BACKEND_URL || "") + "/api";
+const API = process.env.REACT_APP_API_BASE_URL ?? "";
 
 export const waitlistApi = {
   getCount: (): Promise<WaitlistCountResponse> =>
