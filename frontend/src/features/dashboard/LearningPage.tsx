@@ -15,7 +15,7 @@ import EmojiNatureOutlinedIcon from "@mui/icons-material/EmojiNatureOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
-import { PlantGrowth, STAGE_LABELS, getStage } from "./components/PlantGrowth";
+import { BrainBloom, BRAIN_STAGE_LABELS as STAGE_LABELS, getStage } from "@/components/shared/BrainBloom";
 import { ENROLLED_COURSES } from "./constants";
 import { useUserStore } from "@/store/userStore";
 
@@ -34,10 +34,10 @@ export default function LearningPage() {
       {/* Header */}
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 0.75 }}>
         <EmojiNatureOutlinedIcon sx={{ color: "success.main", fontSize: 24 }} />
-        <Typography variant="h5" sx={{ fontWeight: 700 }}>Your Learning Garden</Typography>
+        <Typography variant="h5" sx={{ fontWeight: 700 }}>Your Learning Brain</Typography>
       </Stack>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 4, maxWidth: 520 }}>
-        Each course grows as you learn. Keep watering your knowledge — watch your garden bloom.
+        Every lesson you complete grows your brain. Watch the flowers bloom as your knowledge deepens.
       </Typography>
 
       {/* Summary strip */}
@@ -165,7 +165,7 @@ export default function LearningPage() {
                         : `linear-gradient(180deg, ${course.color}14 0%, transparent 100%)`,
                   }}
                 >
-                  <PlantGrowth progress={pct} color={course.color} size={130} />
+                  <BrainBloom progress={pct} size={150} />
 
                   {/* Stage label */}
                   <Chip

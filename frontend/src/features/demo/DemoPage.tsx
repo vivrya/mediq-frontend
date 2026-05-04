@@ -9,6 +9,7 @@ import {
   Button,
   Avatar,
   Divider,
+  Alert,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
@@ -21,6 +22,8 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@/store/userStore";
+import { useRazorpay } from "@/hooks/useRazorpay";
+import type { PlanOption } from "@/hooks/useRazorpay";
 
 // ── Demo video data ────────────────────────────────────────────
 
@@ -79,12 +82,21 @@ const HOW_IT_WORKS = [
 
 // ── Pricing plans ──────────────────────────────────────────────
 
-const PLANS = [
+const PLANS: Array<PlanOption & {
+  tag: string;
+  priceLabel: string;
+  cadence: string;
+  features: string[];
+  highlight: boolean;
+  color: string;
+}> = [
   {
     id: "ug",
-    name: "UG Complete",
-    tag: "For MBBS UG",
-    price: "$12",
+    label: "UG Complete",
+    tag: "For MBBS / BDS",
+    amountInr: 999,
+    description: "MediQ UG Complete — monthly subscription",
+    priceLabel: "₹999",
     cadence: "/ month",
     features: [
       "All UG subjects & video chunks",
@@ -97,9 +109,11 @@ const PLANS = [
   },
   {
     id: "pg",
-    name: "PG Complete",
-    tag: "USMLE · NEET PG · PLAB",
-    price: "$29",
+    label: "PG Complete",
+    tag: "NEET PG · USMLE · PLAB",
+    amountInr: 1999,
+    description: "MediQ PG Complete — monthly subscription",
+    priceLabel: "₹1,999",
     cadence: "/ month",
     features: [
       "All PG MCQ banks (20k+)",
@@ -219,13 +233,22 @@ function FlashcardDemo() {
 
 export default function DemoPage() {
   const navigate = useNavigate();
-  const { setSubscribed } = useUserStore();
+  const { setSubscribed, setProfile, profile } = useUserStore();
 
-  function handleGetAccess() {
-    // TODO: replace with real payment/auth flow
-    setSubscribed(true);
-    navigate("/dashboard");
-  }
+  const { initiatePayment, loading: payLoading, error: payError } = useRazorpay(
+    (_response, plan) => {
+      setSubscribed(true);
+      setProfile({
+        ...profile,
+        plan: plan.id as "ug" | "pg",
+        planLabel: plan.label,
+        isActive: true,
+        planExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+          .toISOString().split("T")[0],
+      });
+      navigate("/dashboard");
+    }
+  );
 
   return (
     <Box>
@@ -259,7 +282,8 @@ export default function DemoPage() {
           variant="contained"
           size="large"
           startIcon={<LockOpenOutlinedIcon />}
-          onClick={handleGetAccess}
+          onClick={() => initiatePayment(PLANS[0])}
+          disabled={payLoading}
           data-testid="demo-get-access"
           sx={{ fontWeight: 700 }}
         >
@@ -415,6 +439,12 @@ export default function DemoPage() {
             Unlock all video chunks, flashcard decks, MCQ banks, and progress tracking.
           </Typography>
 
+          {payError && (
+            <Alert severity="error" sx={{ mb: 3, maxWidth: 700 }}>
+              {payError}
+            </Alert>
+          )}
+
           <Grid container spacing={3} sx={{ maxWidth: 700 }}>
             {PLANS.map((plan) => (
               <Grid key={plan.id} size={{ xs: 12, sm: 6 }}>
@@ -451,14 +481,14 @@ export default function DemoPage() {
                     />
                   )}
                   <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                    {plan.name}
+                    {plan.label}
                   </Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, mb: 1.5 }}>
                     {plan.tag}
                   </Typography>
                   <Stack direction="row" alignItems="baseline" spacing={0.5} sx={{ mb: 2 }}>
                     <Typography variant="h4" sx={{ fontWeight: 800 }}>
-                      {plan.price}
+                      {plan.priceLabel}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {plan.cadence}
@@ -479,11 +509,12 @@ export default function DemoPage() {
                     variant={plan.highlight ? "contained" : "outlined"}
                     color="primary"
                     size="large"
+                    disabled={payLoading}
                     sx={{ fontWeight: 700 }}
-                    onClick={handleGetAccess}
+                    onClick={() => initiatePayment(plan)}
                     data-testid={`demo-buy-${plan.id}`}
                   >
-                    Get started
+                    {payLoading ? "Opening payment…" : `Get started — ${plan.priceLabel}`}
                   </Button>
                 </Card>
               </Grid>

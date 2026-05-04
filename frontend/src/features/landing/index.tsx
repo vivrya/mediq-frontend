@@ -8,6 +8,7 @@ import { AdhdMethods } from "./components/AdhdMethods";
 import { VideoChunks } from "./components/VideoChunks";
 import { QuizFlashcards } from "./components/QuizFlashcards";
 import { ProgressPreview } from "./components/ProgressPreview";
+import { BrainSection } from "./components/BrainSection";
 import { Testimonials } from "./components/Testimonials";
 import { Pricing } from "./components/Pricing";
 import { FAQ } from "./components/FAQ";
@@ -27,6 +28,7 @@ export default function LandingPage() {
         <VideoChunks />
         <QuizFlashcards />
         <ProgressPreview />
+        <BrainSection />
         <Testimonials />
         <Pricing />
         <FAQ />
