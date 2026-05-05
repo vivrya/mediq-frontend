@@ -6,12 +6,12 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { ThemeProvider as MuiThemeProvider, CssBaseline, PaletteMode } from "@mui/material";
-import { buildTheme } from "@/theme";
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
+import { buildTheme, AppMode } from "@/theme";
 import { useUserStore } from "@/store/userStore";
 
 interface ColorModeCtx {
-  mode: PaletteMode;
+  mode: AppMode;
   toggle: () => void;
 }
 
@@ -23,15 +23,14 @@ const ColorModeContext = createContext<ColorModeCtx>({
 export const useColorMode = () => useContext(ColorModeContext);
 
 const STORAGE_KEY = "mediq-theme";
+const MODES: AppMode[] = ["light", "dark", "warm"];
 
 export function AppThemeProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<AppMode>("light");
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY)) as
-      | PaletteMode
-      | null;
-    if (stored === "light" || stored === "dark") setMode(stored);
+    const stored = localStorage.getItem(STORAGE_KEY) as AppMode | null;
+    if (stored && MODES.includes(stored)) setMode(stored);
   }, []);
 
   const ctx = useMemo<ColorModeCtx>(
@@ -39,10 +38,8 @@ export function AppThemeProvider({ children }: { children: ReactNode }) {
       mode,
       toggle: () =>
         setMode((m) => {
-          const next = m === "light" ? "dark" : "light";
-          try {
-            localStorage.setItem(STORAGE_KEY, next);
-          } catch {}
+          const next = MODES[(MODES.indexOf(m) + 1) % MODES.length];
+          try { localStorage.setItem(STORAGE_KEY, next); } catch {}
           return next;
         }),
     }),
