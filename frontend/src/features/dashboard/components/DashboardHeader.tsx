@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { ProfileMenu } from "./ProfileMenu";
 import { HEADER } from "../constants";
 import { useUserStore } from "@/store/userStore";
+import { useThemeTokens } from "@/providers/ThemeProvider";
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -18,6 +19,7 @@ function getGreeting(): string {
 export function DashboardHeader() {
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const profile = useUserStore((s) => s.profile);
+  const tokens = useThemeTokens();
 
   return (
     <Box
@@ -42,7 +44,7 @@ export function DashboardHeader() {
             </Typography>
           </Box>
           <Chip
-            icon={<LocalFireDepartmentIcon sx={{ color: "#F59E0B !important" }} />}
+            icon={<LocalFireDepartmentIcon sx={{ color: `${tokens.fire} !important` }} />}
             label={HEADER.streakLabel}
             data-testid="dash-streak"
             sx={{ fontWeight: 600 }}

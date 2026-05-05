@@ -18,10 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { BrainBloom, BRAIN_STAGE_LABELS as STAGE_LABELS, getStage } from "@/components/shared/BrainBloom";
 import { ENROLLED_COURSES } from "./constants";
 import { useUserStore } from "@/store/userStore";
+import { useThemeTokens } from "@/providers/ThemeProvider";
 
 export default function LearningPage() {
   const navigate = useNavigate();
   const { profile } = useUserStore();
+  const tokens = useThemeTokens();
 
   const totalCompleted = ENROLLED_COURSES.reduce((s, c) => s + c.completedLessons, 0);
   const totalLessons   = ENROLLED_COURSES.reduce((s, c) => s + c.totalLessons, 0);
@@ -44,43 +46,32 @@ export default function LearningPage() {
       <Grid container spacing={2} sx={{ mb: 5 }}>
         {[
           {
-            icon: <LocalFireDepartmentIcon sx={{ color: "#F59E0B", fontSize: 20 }} />,
+            icon: <LocalFireDepartmentIcon sx={{ color: tokens.fire, fontSize: 20 }} />,
             value: `${profile.streakDays} days`,
             label: "Current streak",
-            bg: "#FEF3C7",
-            darkBg: "rgba(245,158,11,.12)",
+            bg: tokens.successSoft,
           },
           {
-            icon: <EmojiNatureOutlinedIcon sx={{ color: "#10B981", fontSize: 20 }} />,
+            icon: <EmojiNatureOutlinedIcon sx={{ color: tokens.success, fontSize: 20 }} />,
             value: ENROLLED_COURSES.length,
             label: "Plants growing",
-            bg: "#ECFDF5",
-            darkBg: "rgba(16,185,129,.12)",
+            bg: tokens.successSoft,
           },
           {
-            icon: <CheckCircleIcon sx={{ color: "#0F52BA", fontSize: 20 }} />,
+            icon: <CheckCircleIcon sx={{ color: tokens.primary, fontSize: 20 }} />,
             value: totalCompleted,
             label: "Lessons completed",
-            bg: "#EFF6FF",
-            darkBg: "rgba(15,82,186,.12)",
+            bg: tokens.primarySoft,
           },
           {
             icon: <span style={{ fontSize: 20 }}>🌸</span>,
             value: blooming,
             label: "Full blooms",
-            bg: "#FDF4FF",
-            darkBg: "rgba(192,86,173,.12)",
+            bg: tokens.primarySoft,
           },
         ].map((s) => (
           <Grid key={s.label} size={{ xs: 6, sm: 3 }}>
-            <Card
-              variant="outlined"
-              sx={{
-                p: 2,
-                textAlign: "center",
-                bgcolor: (t) => t.palette.mode === "light" ? s.bg : s.darkBg,
-              }}
-            >
+            <Card variant="outlined" sx={{ p: 2, textAlign: "center", bgcolor: s.bg }}>
               <Stack alignItems="center" spacing={0.5}>
                 {s.icon}
                 <Typography variant="h5" sx={{ fontWeight: 800, lineHeight: 1 }}>{s.value}</Typography>
@@ -92,17 +83,7 @@ export default function LearningPage() {
       </Grid>
 
       {/* Overall garden progress */}
-      <Card
-        variant="outlined"
-        sx={{
-          p: 3,
-          mb: 5,
-          background: (t) =>
-            t.palette.mode === "light"
-              ? "linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%)"
-              : "linear-gradient(135deg, rgba(16,185,129,.08) 0%, rgba(15,82,186,.08) 100%)",
-        }}
-      >
+      <Card variant="outlined" sx={{ p: 3, mb: 5, background: tokens.cardBg }}>
         <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ sm: "center" }} justifyContent="space-between" spacing={2}>
           <Box sx={{ flex: 1 }}>
             <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
@@ -114,10 +95,10 @@ export default function LearningPage() {
             <LinearProgress
               variant="determinate"
               value={overallPct}
-              sx={{ mt: 1.5, height: 10, borderRadius: 5, bgcolor: "rgba(0,0,0,.06)", "& .MuiLinearProgress-bar": { background: "linear-gradient(90deg, #10B981, #0F52BA)" } }}
+              sx={{ mt: 1.5, height: 10, borderRadius: 5, bgcolor: "rgba(0,0,0,.06)", "& .MuiLinearProgress-bar": { background: tokens.progressGradient } }}
             />
           </Box>
-          <Typography variant="h3" sx={{ fontWeight: 800, color: "success.main", flexShrink: 0 }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, color: tokens.success, flexShrink: 0 }}>
             {overallPct}%
           </Typography>
         </Stack>
@@ -144,9 +125,7 @@ export default function LearningPage() {
                   "&:hover": { boxShadow: 6, transform: "translateY(-3px)" },
                   ...(isDone && {
                     background: (t) =>
-                      t.palette.mode === "light"
-                        ? "linear-gradient(160deg, #f0fdf4 0%, #fdf4ff 100%)"
-                        : "linear-gradient(160deg, rgba(16,185,129,.08) 0%, rgba(192,86,173,.08) 100%)",
+                      tokens.doneCardBg,
                   }),
                 }}
               >
@@ -159,10 +138,7 @@ export default function LearningPage() {
                     pt: 3,
                     pb: 1,
                     position: "relative",
-                    background: (t) =>
-                      t.palette.mode === "light"
-                        ? `linear-gradient(180deg, ${course.color}0A 0%, transparent 100%)`
-                        : `linear-gradient(180deg, ${course.color}14 0%, transparent 100%)`,
+                    background: `linear-gradient(180deg, ${course.color}12 0%, transparent 100%)`,
                   }}
                 >
                   <BrainBloom progress={pct} size={150} />

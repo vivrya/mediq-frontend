@@ -26,6 +26,7 @@ import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined
 import { Logo } from "@/components/shared/Logo";
 import { SIDEBAR } from "../constants";
 import { useUserStore } from "@/store/userStore";
+import { useThemeTokens } from "@/providers/ThemeProvider";
 
 export const SIDEBAR_WIDTH = 248;
 
@@ -49,6 +50,7 @@ export function DashboardSidebar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { isSubscribed } = useUserStore();
+  const tokens = useThemeTokens();
 
   function handleNavClick(to: string, isPremium: boolean) {
     if (!isSubscribed && isPremium) {
@@ -146,25 +148,14 @@ export function DashboardSidebar() {
               sx={{
                 borderRadius: 2,
                 mb: 0.5,
-                background: (t) =>
-                  pathname === "/dashboard/demo"
-                    ? undefined
-                    : t.palette.mode === "light"
-                    ? "linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%)"
-                    : "linear-gradient(135deg, rgba(16,185,129,.12) 0%, rgba(15,82,186,.12) 100%)",
+                background: pathname === "/dashboard/demo" ? undefined : tokens.sidebarDemoBg,
                 border: "1px solid",
-                borderColor: (t) =>
-                  t.palette.mode === "light" ? "success.light" : "rgba(16,185,129,.3)",
+                borderColor: tokens.sidebarDemoBorder,
                 "&.Mui-selected": {
                   bgcolor: "success.light",
                   "& .MuiListItemIcon-root": { color: "success.dark" },
                 },
-                "&:hover": {
-                  background: (t) =>
-                    t.palette.mode === "light"
-                      ? "linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%)"
-                      : "linear-gradient(135deg, rgba(16,185,129,.2) 0%, rgba(15,82,186,.2) 100%)",
-                },
+                "&:hover": { background: tokens.sidebarDemoHover },
               }}
             >
               <ListItemIcon sx={{ minWidth: 36, color: "success.main" }}>
@@ -189,8 +180,7 @@ export function DashboardSidebar() {
             sx={{
               p: 2,
               mb: 1,
-              bgcolor: (t) =>
-                t.palette.mode === "light" ? "primary.light" : "rgba(59,130,246,.1)",
+              bgcolor: tokens.upgradeCardBg,
               borderColor: "primary.main",
             }}
           >

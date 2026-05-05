@@ -30,11 +30,13 @@ import {
   IN_PROGRESS_ITEMS,
 } from "./constants";
 import { useUserStore } from "@/store/userStore";
+import { useThemeTokens } from "@/providers/ThemeProvider";
 
 // ── Flip card used in the unlocked flashcard preview ──────────
 
 function MiniFlipCard() {
   const [flipped, setFlipped] = useState(false);
+  const tokens = useThemeTokens();
   return (
     <Box sx={{ perspective: 1000 }}>
       <Box
@@ -59,7 +61,7 @@ function MiniFlipCard() {
             flexDirection: "column",
             justifyContent: "space-between",
             boxShadow: 4,
-            borderTop: "3px solid #10B981",
+            borderTop: `3px solid ${tokens.featureBorderTop}`,
           }}
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -112,6 +114,7 @@ function MiniFlipCard() {
 export default function DashboardPage() {
   const { profile } = useUserStore();
   const navigate = useNavigate();
+  const tokens = useThemeTokens();
   const active = profile.isActive;
 
   return (
@@ -325,7 +328,7 @@ export default function DashboardPage() {
               </Box>
             ) : (
               <Box sx={{ position: "relative", mt: 2, minHeight: 240 }}>
-                <Box sx={{ position: "absolute", inset: 0, borderRadius: 3, filter: "blur(2px)", background: (t) => t.palette.mode === "light" ? "linear-gradient(135deg, rgba(15,82,186,.14), rgba(16,185,129,.14))" : "linear-gradient(135deg, rgba(59,130,246,.18), rgba(16,185,129,.18))" }} />
+                <Box sx={{ position: "absolute", inset: 0, borderRadius: 3, filter: "blur(2px)", background: tokens.heroOverlay }} />
                 <Card sx={{ position: "absolute", top: 16, left: 16, width: 170, p: 1.5, transform: "rotate(-6deg)", boxShadow: 3, filter: "blur(1px)", opacity: 0.85 }}>
                   <Typography variant="overline" color="text.secondary" sx={{ fontSize: 9 }}>{FLASHCARDS_PREVIEW.card1Subject}</Typography>
                   <Typography variant="body2" sx={{ fontWeight: 700, fontSize: 12, mt: 0.5 }}>{FLASHCARDS_PREVIEW.card1Question}</Typography>

@@ -8,19 +8,23 @@ import {
 } from "react";
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
 import { buildTheme, AppMode } from "@/theme";
+import { getTokens, ThemeTokens } from "@/themeTokens";
 import { useUserStore } from "@/store/userStore";
 
 interface ColorModeCtx {
   mode: AppMode;
+  tokens: ThemeTokens;
   toggle: () => void;
 }
 
 const ColorModeContext = createContext<ColorModeCtx>({
   mode: "light",
+  tokens: getTokens("light"),
   toggle: () => {},
 });
 
 export const useColorMode = () => useContext(ColorModeContext);
+export const useThemeTokens = () => useContext(ColorModeContext).tokens;
 
 const STORAGE_KEY = "mediq-theme";
 const MODES: AppMode[] = ["light", "dark", "warm"];
@@ -36,6 +40,7 @@ export function AppThemeProvider({ children }: { children: ReactNode }) {
   const ctx = useMemo<ColorModeCtx>(
     () => ({
       mode,
+      tokens: getTokens(mode),
       toggle: () =>
         setMode((m) => {
           const next = MODES[(MODES.indexOf(m) + 1) % MODES.length];
