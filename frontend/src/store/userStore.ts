@@ -50,11 +50,14 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       profile: SAMPLE_PROFILE,
       setProfile: (profile) => set({ profile }),
-      isSubscribed: false,
+      isSubscribed: true,
       setSubscribed: (value) => set({ isSubscribed: value }),
       isDyslexicMode: false,
       setDyslexicMode: (value) => set({ isDyslexicMode: value }),
     }),
-    { name: "mediq-user" }
+    {
+      name: "mediq-user",
+      version: 2, // bumped to clear stale persisted state
+    }
   )
 );

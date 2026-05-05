@@ -21,20 +21,25 @@ export function usePostAuthRedirect() {
 
     const data = await res.json();
 
+    // TEST OVERRIDES — remove once backend returns real subscription data
+    const TEST_SUBSCRIBED = true;
+
+    const fullName = data.full_name ?? session.user.user_metadata?.full_name ?? "User";
+
     const profile: UserProfile = {
       id: data.id ?? session.user.id,
-      name: data.full_name ?? session.user.user_metadata?.full_name ?? "",
+      name: fullName,
       email: data.email ?? session.user.email ?? "",
-      avatarInitial: (data.full_name ?? session.user.user_metadata?.full_name ?? "?")[0].toUpperCase(),
+      avatarInitial: fullName[0].toUpperCase(),
       role: data.role ?? "ug",
-      plan: data.plan ?? "free",
-      planLabel: data.plan_label ?? "Free",
-      isActive: data.is_active ?? false,
-      planExpiry: data.plan_expiry ?? null,
+      plan: data.plan ?? (TEST_SUBSCRIBED ? "ug" : "free"),
+      planLabel: data.plan_label ?? (TEST_SUBSCRIBED ? "UG Complete" : "Free"),
+      isActive: data.is_active ?? TEST_SUBSCRIBED,
+      planExpiry: data.plan_expiry ?? (TEST_SUBSCRIBED ? "2026-12-31" : null),
       joinedAt: data.joined_at ?? new Date().toISOString().split("T")[0],
-      streakDays: data.streak_days ?? 0,
-      university: data.university ?? "",
-      yearOfStudy: data.year_of_study ?? 1,
+      streakDays: data.streak_days ?? (TEST_SUBSCRIBED ? 7 : 0),
+      university: data.university ?? session.user.user_metadata?.med_school ?? "",
+      yearOfStudy: data.year_of_study ?? session.user.user_metadata?.year_of_study ?? 1,
     };
 
     setProfile(profile);

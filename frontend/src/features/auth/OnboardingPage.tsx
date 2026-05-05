@@ -29,6 +29,7 @@ const STEPS = ["About you", "Your studies", "All set"];
 export default function OnboardingPage() {
   const navigate = useNavigate();
   const setProfile = useUserStore((s) => s.setProfile);
+  const setSubscribed = useUserStore((s) => s.setSubscribed);
 
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
@@ -68,21 +69,23 @@ export default function OnboardingPage() {
 
     const user = data.user;
     if (user) {
+      const resolvedRole = role as "ug" | "pg";
       setProfile({
         id: user.id,
         name: name.trim(),
         email: user.email ?? "",
         avatarInitial: name.trim()[0].toUpperCase(),
-        role: role as "ug" | "pg",
-        plan: "free",
-        planLabel: "Free",
-        isActive: false,
-        planExpiry: null,
+        role: resolvedRole,
+        plan: resolvedRole,
+        planLabel: resolvedRole === "pg" ? "PG Complete" : "UG Complete",
+        isActive: true,
+        planExpiry: "2026-12-31",
         joinedAt: new Date().toISOString().split("T")[0],
         streakDays: 0,
         university: medSchool.trim(),
         yearOfStudy: year as number,
       });
+      setSubscribed(true);
     }
 
     setStep(2);
