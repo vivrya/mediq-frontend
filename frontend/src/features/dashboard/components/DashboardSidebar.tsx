@@ -196,7 +196,7 @@ export function DashboardSidebar() {
             <Button
               fullWidth
               size="small"
-              variant="contained"
+              variant="outlined"
               color="primary"
               data-testid="dash-sidebar-upgrade"
               component={RouterLink}

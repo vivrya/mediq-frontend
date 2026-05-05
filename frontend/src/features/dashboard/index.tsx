@@ -222,7 +222,7 @@ export default function DashboardPage() {
               <Button variant="outlined" color="inherit" onClick={() => navigate("/dashboard/courses")} data-testid="dash-view-courses" sx={{ borderColor: "divider" }}>
                 {MY_COURSES.viewCoursesBtn}
               </Button>
-              <Button variant="contained" color="primary" endIcon={<ArrowForwardIcon />} onClick={() => navigate("/dashboard/demo")} data-testid="dash-get-access">
+              <Button variant="outlined" color="primary" endIcon={<ArrowForwardIcon />} onClick={() => navigate("/dashboard/demo")} data-testid="dash-get-access">
                 {MY_COURSES.getAccessBtn}
               </Button>
             </Stack>
@@ -295,7 +295,7 @@ export default function DashboardPage() {
                 <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 420, mx: "auto" }}>
                   {CONTINUE_LEARNING.description}
                 </Typography>
-                <Button variant="contained" color="primary" endIcon={<ArrowForwardIcon />} onClick={() => navigate("/dashboard/demo")} sx={{ mt: 2.5 }} data-testid="dash-continue-unlock">
+                <Button variant="outlined" color="primary" endIcon={<ArrowForwardIcon />} onClick={() => navigate("/dashboard/demo")} sx={{ mt: 2.5 }} data-testid="dash-continue-unlock">
                   {CONTINUE_LEARNING.button}
                 </Button>
               </Box>
@@ -343,7 +343,7 @@ export default function DashboardPage() {
                     <LockOutlinedIcon color="primary" />
                   </Box>
                   <Typography variant="body1" sx={{ fontWeight: 700, maxWidth: 260 }}>{FLASHCARDS_PREVIEW.heading}</Typography>
-                  <Button variant="contained" color="primary" size="small" sx={{ mt: 2 }} onClick={() => navigate("/dashboard/demo")} data-testid="dash-flashcards-unlock">
+                  <Button variant="outlined" color="primary" size="small" sx={{ mt: 2 }} onClick={() => navigate("/dashboard/demo")} data-testid="dash-flashcards-unlock">
                     {FLASHCARDS_PREVIEW.button}
                   </Button>
                 </Box>

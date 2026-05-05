@@ -59,8 +59,8 @@ export function AvailablePlans() {
               <Button
                 fullWidth
                 size="large"
-                variant={p.highlight ? "contained" : "outlined"}
-                color={p.highlight ? "primary" : "inherit"}
+                variant="outlined"
+                color="primary"
                 sx={{ mt: 3 }}
                 data-testid={`dash-plan-${p.id}-buy`}
               >
@@ -120,7 +120,7 @@ export function AvailablePlans() {
               <Button
                 fullWidth
                 size="small"
-                variant="contained"
+                variant="outlined"
                 color="primary"
                 sx={{ mt: 2 }}
                 data-testid={`dash-subject-${s.id}-buy`}

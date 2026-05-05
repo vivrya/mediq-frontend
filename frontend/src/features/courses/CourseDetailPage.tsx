@@ -406,7 +406,7 @@ export default function CourseDetailPage() {
 
               <Divider sx={{ mb: 3 }} />
 
-              <Button variant="contained" color="primary" size="large" fullWidth data-testid="course-detail-enroll">
+              <Button variant="outlined" color="primary" size="large" fullWidth data-testid="course-detail-enroll">
                 Enroll now
               </Button>
             </Card>

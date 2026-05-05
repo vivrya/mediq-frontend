@@ -279,7 +279,7 @@ export default function DemoPage() {
           No subscription needed to preview.
         </Typography>
         <Button
-          variant="contained"
+          variant="outlined"
           size="large"
           startIcon={<LockOpenOutlinedIcon />}
           onClick={() => initiatePayment(PLANS[0])}
